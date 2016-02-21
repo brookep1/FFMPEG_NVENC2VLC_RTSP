@@ -28,6 +28,23 @@ https://github.com/rdp/ffmpeg-windows-build-helpers
 3. Cygwin - Cygwin provides BASH which is an easier scripting language for me. BASH allows for visually breaking lines using "\"
 
 
+OPTIONAL:
+
+Can create a windows shortcut link with this in it and you can drag-drop a file onto the link to start the streaming with that file. Adjust as necessary for your environment. 
+
+  C:\cygwin64\bin\mintty.exe C:\cygwin64\bin\bash.exe  -l -c  "bin/ffmpeg_stream.sh \"$0\"; sleep 30"
+
+
+Similarly you can create an Explorer "Send To" option that you can right-click on a file
+
+Need to put a shortcut link like above in this directory
+
+  C:\Users\<your_user_name>\AppData\Roaming\Microsoft\Windows\SendTo
+
+
+The how-to came from one of the answers in this question. http://stackoverflow.com/questions/9637601/open-cygwin-at-a-specific-folder
+
+
 NOTES:
 
 
