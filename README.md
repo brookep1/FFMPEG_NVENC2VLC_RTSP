@@ -1,2 +1,45 @@
 # FFMPEG_NVENC2VLC_RTSP
-Small Cygwin-bash script showing how to use FFMPEG compiled with NVidia HW encoder and other non-free libraries to rapidly transcode videos into Android compatible RTSP streams. 
+
+
+_ffmpeg_stream.sh
+
+Small Cygwin-bash script showing how to use FFMPEG compiled with NVidia HW encoder and other non-free libraries to rapidly transcode videos into Android compatible RTSP streams. It is in fact only 1 command line with a pipe.
+
+
+I use this script to transcode and stream 3D and VR videos to cardboard players my Android Moto X Pure. You can adjust as needed for your needs.
+It works for anything I've thrown at it so far. The one issue is that you can't seek the stream.
+If you PAUSE VLC the pipe will will block and FFMPEG will pause appropriately.
+
+
+The H264 codec, TS encapsulation and RTSP (UDP) transport are the best (only) way I've found to truly transcode a video on the fly in a way the default Android video player can play.
+VLC, MXPlayer, etc can play other formats and configurations but at the moment there are no cardboard video players that do not use the built-in Android player functionality.
+
+Why not HTTP transport and/or mp4 encapsulation? An mp4 encapsulated video has to be already encoded for streaming play before it can be progressive streamed via HTTP. When encoding to H264 the setting for that is typically called "fast-start", "web compatible", etc. What it does is after the video is encoded it moves the MOOV header that contains the library of what's being muxed to the head of the file. A stubborn player like the Android one will not render anything without first accessing that.
+
+
+REQUIREMENTS:
+
+
+1. FFMPEG Cross-Compiled to use NVidia's h264 hardware acceleration. This script and instructions worked very well for me. I use VirtualBox with an Ubuntu build to create the Linux compile environement (NOT Cygwin).
+https://github.com/rdp/ffmpeg-windows-build-helpers
+2. VideoLan's VLC - Just a normal windows build should be OK
+3. Cygwin - Cygwin provides BASH which is an easier scripting language for me. BASH allows for visually breaking lines using "\"
+
+
+NOTES:
+
+
+The FFMPEG NVENC source code. The definitive and mostly only documentation source for what parameters are available.
+
+https://www.ffmpeg.org/doxygen/3.0/nvenc_8c_source.html
+
+
+The FFMPEG (outbound) streaming guide helps with some ideas and parameters.
+
+https://trac.ffmpeg.org/wiki/StreamingGuide 
+
+
+The NVIDIA example documentation that shows how to make things go with some reasonable parameters to start with. Including a setting in the vein of x264's tune=file
+
+http://developer.download.nvidia.com/compute/redist/ffmpeg/1511-patch/FFMPEG-with-NVIDIA-Acceleration-on-Ubuntu_UG_v01.pdf
+
