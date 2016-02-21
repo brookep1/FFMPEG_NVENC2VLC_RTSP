@@ -1,12 +1,14 @@
 # FFMPEG_NVENC2VLC_RTSP
 
 
-_ffmpeg_stream.sh
+ffmpeg_stream.sh and  vlc_stream.sh
 
-Small Cygwin-bash script showing how to use FFMPEG compiled with NVidia HW encoder and other non-free libraries to rapidly transcode videos into Android compatible RTSP streams. It is in fact only 1 command line with a pipe.
+Small Cygwin-bash scripts showing how to use FFMPEG compiled with NVidia HW encoder and other non-free libraries to rapidly transcode videos into Android compatible RTSP streams. It is in fact only 1 command line with a pipe.
+
+The "ffmpeg" script works well but doesn't allow for seeking at all. The "vlc" script creates a ffmpeg sandwich between 2 VLC's. Doesn't work well at all but when it does it allows for seeking using the first VLC that opens the source. You can't push RAW from the first VLC to FFMPEG. It has to do some kind of encapsulation so I try to do a HW assisted decode and as close to a null encode as possible to lowlatency push into FFMPEG for HW encode.
 
 
-I use this script to transcode and stream 3D and VR videos to cardboard players my Android Moto X Pure. You can adjust as needed for your needs.
+I use these scripts to transcode and stream 3D and VR videos to cardboard players my Android Moto X Pure. You can adjust as needed for your needs.
 It works for anything I've thrown at it so far. The one issue is that you can't seek the stream.
 If you PAUSE VLC the pipe will will block and FFMPEG will pause appropriately.
 
